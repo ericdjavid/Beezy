@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function PriceBox() {
   return (
-  <div className="lg:w-1/3 md:w-1/2 p-5 w-1/3">
+  <div className="lg:w-1/3 md:w-1/2 sm:w-full p-5">
         <div className="p-5 rounded-lg border border-gray-200 bg-white">
             <h4> Package Pricing (with border) </h4>
             <h5 className="text-5xl font-bold py-2 text-gray-500"> $9.99<small className="text-lg">/mo</small></h5> 

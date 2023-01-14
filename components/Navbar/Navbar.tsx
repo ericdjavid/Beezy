@@ -20,32 +20,8 @@ export default function TheNavbar() {
                     Beezy
                 </span>
             </Navbar.Brand>
-            <div className='flex justify-center align-middle items-center rounded-full p-2 gap-2'>
-            <Navbar.Collapse>
-                <Navbar.Link
-                    href="/navbars"
-                    active={true}
-                    >
-                    Home
-                </Navbar.Link>
-                <Navbar.Link href="/navbars">
-                    About
-                </Navbar.Link>
-                <Navbar.Link href="/navbars">
-                    Services
-                </Navbar.Link>
-                <Navbar.Link href="/navbars">
-                    Pricing
-                </Navbar.Link>
-                <Navbar.Link href="/navbars">
-                    Contact
-                </Navbar.Link>
-                <Navbar.Link href="/connect">
-                    Connect
-                </Navbar.Link>
-                            </Navbar.Collapse>
 
-                        <div className="flex ml-4">
+            <div className="flex order-3">
                 <Dropdown
                     arrowIcon={false}
                     inline={true}
@@ -74,10 +50,33 @@ export default function TheNavbar() {
                     </Dropdown.Item>
                 </Dropdown>
 
-                    </div>
+                    {/* </div> */}
                         </div>
-                <Navbar.Toggle />
 
+                <Navbar.Toggle />
+            <Navbar.Collapse>
+                <Navbar.Link
+                    href="/navbars"
+                    active={true}
+                    >
+                    Home
+                </Navbar.Link>
+                <Navbar.Link href="/navbars">
+                    About
+                </Navbar.Link>
+                <Navbar.Link href="/navbars">
+                    Services
+                </Navbar.Link>
+                <Navbar.Link href="/navbars">
+                    Pricing
+                </Navbar.Link>
+                <Navbar.Link href="/navbars">
+                    Contact
+                </Navbar.Link>
+                <Navbar.Link href="/connect">
+                    Connect
+                </Navbar.Link>
+                            </Navbar.Collapse>
         </Navbar>
     )
 }
