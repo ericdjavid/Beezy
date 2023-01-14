@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <div className='bg-white dark:bg-slate-800 flex text-xl p-10 '>
 
-        <h1 className='basis-1/4'>Beeliz</h1>
+    <h1 className='basis-1/4'>Beeliz</h1>
         <div className='basis-2/4'></div>
         <div className='basis-1/4 text-right flex text-sm gap-10'>
 
