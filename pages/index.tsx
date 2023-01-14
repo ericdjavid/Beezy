@@ -1,22 +1,37 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
-import Link from 'next/link'
 import Navbar from '../components/Navbar/Navbar'
-import { Alert } from 'flowbite-react'
-import MyAlert from '../components/Navbar/alert'
 import Pay from '../components/Pay'
 import FooterProj from '../components/Footer'
-import { Features } from '@headlessui/react/dist/utils/render'
 import FeatureExample from '../components/Feature'
 import Team from '../components/Team'
 
-const inter = Inter({ subsets: ['latin'] })
+// qd tu veux passer de la donner au rendu statique, utiliser getStaticProps
+// ne s'execute que lorsqu'on build l'app, jamais ne sera affiché côté client
+// faire du node.js ici
+export async function getStaticProps() {
 
-export default function Home() {
+  const data = await import(`../data/vocabulary.json`)
+  const array = data.vocabulary
+
+  return {
+    props: {
+      array
+    }
+  }
+}
+
+
+export default function Home(props: any) {
+
+  console.log(props)
   return (
     <>
+      <Head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        {/* Permet d'avoir l'écran bien zoomé à 100% sur telephone */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Beezey - A new way to plan business travels</title>
+      </Head>
       <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
         <svg
           className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
@@ -62,7 +77,7 @@ export default function Home() {
               </div>
               <div>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
-                 Votre générateur de voyages professionnels <span className='text-2xl'>️🌍❤💼</span> 
+                  Votre générateur de voyages professionnels <span className='text-2xl'>️🌍❤💼</span>
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
                   Beezy est un puissant générateur de voyage professionnels.
@@ -118,9 +133,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </main> 
+      </main>
       <FeatureExample />
-      <Team/>
+      <Team />
       <Pay />
       <FooterProj />
       {/* <MyAlert/> */}
