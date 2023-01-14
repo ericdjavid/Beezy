@@ -12,11 +12,11 @@ html, body, label {
  - show navigation always on the large screen devices with (min-width:1024)
 */
 
-@media (min-width: 1024px) {
-  .top-navbar {
-    display: inline-flex !important;
-  }
-}
+// @media (min-width: 1024px) {
+//   .top-navbar {
+//     display: inline-flex !important;
+//   }
+// }
 
 /* .bg {
   background: radial-gradient(ellipse at top, #ffe865, transparent),

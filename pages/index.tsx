@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar/Navbar'
 import { Alert } from 'flowbite-react'
 import MyAlert from '../components/Navbar/alert'
 import Pay from '../components/Pay'
+import FooterProj from '../components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,8 @@ export default function Home() {
           </h1>
         </div>
         </div>
-       <Pay/> 
+       <Pay/>
+       <FooterProj/>
       {/* <MyAlert/> */}
     </>
   )
