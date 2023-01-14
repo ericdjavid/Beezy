@@ -4,10 +4,13 @@
 module.exports = {
   darkMode: 'class',
   content: [
+    "./node_modules/flowbite-react/**/*.js",
     "./pages/**/*.{ts,tsx}",
     "./public/**/*.html",
   ],
-  plugins: [],
+  plugins: [
+    require("flowbite/plugin")
+  ],
   theme: {
     fontFamily: {
       'sans': ['ui-sans-serif', 'Robotto'],

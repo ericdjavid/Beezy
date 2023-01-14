@@ -8,6 +8,16 @@ html, body, label {
   font-family: 'Roboto', sans-serif;
 }
 
+/* navigation 
+ - show navigation always on the large screen devices with (min-width:1024)
+*/
+
+@media (min-width: 1024px) {
+  .top-navbar {
+    display: inline-flex !important;
+  }
+}
+
 /* .bg {
   background: radial-gradient(ellipse at top, #ffe865, transparent),
               radial-gradient(ellipse at bottom, #a29540, transparent);
