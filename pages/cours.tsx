@@ -1,4 +1,5 @@
 import React from 'react'
+import Calendar from '../components/Calendar/Calendar'
 
 export default function cours(props:any) {
 
@@ -7,6 +8,8 @@ export default function cours(props:any) {
   return (
     <div>
       Le bitcoin est à : {props.res.bpi.EUR.rate} €
+      <br/>
+      <Calendar/>
     </div>
   )
 }
