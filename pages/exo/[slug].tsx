@@ -41,11 +41,16 @@ export async function getStaticProps(context : any) {
 // dès qu'on a du chemin dynamique on utilise GSPaths
 export async function getStaticPaths() {
     const data = await import(`../../data/pathsvoc.json`)
+    
+    const paths = data.englishList.map((item:any) => ({
+        params: {slug: item.name}
+    }))
 
     return {
-        paths : [
-            {params: {slug: "words"}}
-        ], 
+        // paths : [
+        //     {params: {slug: "words"}}
+        // ], 
+        paths,
         // si je tombe sur un chemin que je n'ai pas défini, erreur 404
         fallback: false
     }
