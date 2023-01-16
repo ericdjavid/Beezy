@@ -3,8 +3,8 @@ import { useRouter } from 'next/router'
 
 export default function Generate() {
 const router = useRouter();
-const data = router.query;
-console.log(data)
+const selected = router.query;
+console.log(selected)
   return (
     <div>
      <h1>Generator</h1> 

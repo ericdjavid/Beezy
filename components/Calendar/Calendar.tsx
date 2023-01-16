@@ -15,14 +15,18 @@ function Calendar() {
   const [events, setEvents] = useState<any>(null)
   const [selected, setSelected] = useState<any>([])
 
-  // const gapi = window.gapi
-
   const login = useGoogleLogin({
     onSuccess: (tokenResponse: any) => (
       console.log(tokenResponse),
       setData(tokenResponse)
-    )
+    ),
+    scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events"
+    
   })
+
+  useEffect(() => {
+    console.log(selected)
+  }, [selected])
 
   async function handleLog() {
     // find a way to await
@@ -109,7 +113,6 @@ function Calendar() {
             <Card className='w-1/6 m-2 flex flex-col align-top'
               key={uuidv4()}
             >
-
               {e.summary}
               {/* <br /> */}
               {e.start?.dateTime}
@@ -119,7 +122,7 @@ function Calendar() {
               </p>
               <p>
                 Select :{" "}
-                <input type="checkbox" value={e?.id} onClick={() => (console.log("lol"), setSelected([...selected, e]))} />
+                <input type="checkbox" value={e?.id} onClick={() => (setSelected([...selected, e]))} />
               </p>
             </Card>
           ))
