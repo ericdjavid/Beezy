@@ -6,11 +6,11 @@ export default function cours(props:any) {
     console.log(props)
     // https://api.coindesk.com/v1/bpi/currentprice.json
   return (
-    <div>
-      Le bitcoin est à : {props.res.bpi.EUR.rate} €
-      <br/>
+    <>
+      {/* Le bitcoin est à : {props.res.bpi.EUR.rate} €
+      <br/> */}
       <Calendar/>
-    </div>
+    </>
   )
 }
 

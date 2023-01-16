@@ -4,6 +4,7 @@ import Pay from '../components/Pay'
 import FooterProj from '../components/Footer'
 import FeatureExample from '../components/Feature'
 import Team from '../components/Team'
+import Link from 'next/link'
 
 // qd tu veux passer de la donner au rendu statique, utiliser getStaticProps
 // ne s'execute que lorsqu'on build l'app, jamais ne sera affiché côté client
@@ -83,16 +84,16 @@ export default function Home(props: any) {
                   Beezy est un puissant générateur de voyage professionnels.
                 </p>
                 <div className="mt-8 flex gap-x-4 sm:justify-center">
-                  <a
-                    href="#"
+                  <Link
+                    href="/cours"
                     className="inline-block rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
                   >
                     Get started{' '}
                     <span className="text-indigo-200" aria-hidden="true">
                       &rarr;
                     </span>
-                  </a>
-                  <a
+                  </Link>
+                  {/* <a
                     href="#"
                     className="inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 text-gray-900 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
                   >
@@ -100,7 +101,7 @@ export default function Home(props: any) {
                     <span className="text-gray-400" aria-hidden="true">
                       &rarr;
                     </span>
-                  </a>
+                  </a> */}
                 </div>
               </div>
               <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
