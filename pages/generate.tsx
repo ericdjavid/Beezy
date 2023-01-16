@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 
-export default function generate() {
+export default function Generate() {
 const router = useRouter();
 const data = router.query;
 console.log(data)
