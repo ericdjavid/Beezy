@@ -33,7 +33,30 @@ function Calendar() {
     login()
   }
 
-  function handleTick(e: any) {
+  async function axCall(item: any) {
+    {
+      const newItem = item;
+      let address = ''
+      if (item?.location)
+        address = item.location
+      else
+        return item
+
+      console.log(address)
+      // TODO: call geo API and add position
+      await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCD5b-L6M2SS7IJS1WJvkI7tvIrC0fEcqc`)
+        .then(response => {
+          console.log(response.data);
+          newItem.geoLoc = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      return (newItem)
+    }
+  }
+
+  async function handleTick(e: any) {
     console.log(e)
     const config: any = {
       headers: {
@@ -47,12 +70,17 @@ function Calendar() {
       }
     }
 
-    axios.get(`https://www.googleapis.com/calendar/v3/calendars/${e}/events`, config)
-      .then((response: any) => {
-        console.log(response.data.items);
-        setEvents(Array.from(response.data.items))
+    await axios.get(`https://www.googleapis.com/calendar/v3/calendars/${e}/events`, config)
+      .then(async (response: any) => {
+        // console.log(response.data.items);
+        // setEvents(Array.from(response.data.items))
+        const newEvents: any = await Promise.all(Array.from(response.data.items).map((item: any) => (axCall(item))
+        ))
+        setEvents(newEvents)
+        console.log(events)
       })
       .catch((e: any) => (console.log(e)))
+
   }
 
   useEffect(() => {
@@ -136,27 +164,52 @@ function Calendar() {
       </>
     )
 
-    if (step === 1)
-          return (
-            <div>
-                  {selected && (
-                    selected.sort((a:any, b:any) => a.start?.dateTime - b.start?.dateTime).map((e: any) => (
-              <Card className='w-1/6 m-2 flex flex-col align-top'
-                key={uuidv4()}
-              >
-                {e.summary}
-                <br/>
-                {e.start?.dateTime}
-                <p>
-                  {e.location}
-                </p>
-                <p>
-                </p>
-              </Card>
+  if (step === 1)
+    return (
+      <>
+        <h1 className=" text-2xl text-center p-5">SET UP YOUR TRAVEL INFORMATION</h1>
+        <div className='w-full p-5 flex justify-center flex-wrap xs:flex-col md:flex-col xl:flex-row'>
+          <div className='flex flex-col justify-center align-middle text-center'>
+            <div>Travel ✈️
+              <input type="checkbox" checked={true} />
+            </div>
+          </div>
+          {selected && (
+            selected.sort((a: any, b: any) => a.start?.dateTime - b.start?.dateTime).map((e: any) => (
+              <>
+                <Card className='w-1/6 h-60 flex flex-col align-top m-2'
+                  key={uuidv4()}
+                >
+                  {e.summary}
+                  <br />
+                  {e.start?.dateTime}
+                  <p>
+                    {e.location ? e.location : "Address missing 😢 - define an address (add Google address bar)"}
+                  </p>
+                  <p>
+                  </p>
+                </Card>
+                <div className='flex flex-col justify-center align-middle text-center'>
+                  {e != selected[selected.length - 1] && (
+                    <>
+                      <div>Sleep 🛏️
+                        <input type="checkbox" checked={true} value={e?.id} onClick={() => (console.log(e))} />
+                      </div>
+                      <div>---------------</div>
+                    </>
+                  )}
+
+                  <div>Travel ✈️
+
+                    <input type="checkbox" checked={true} value={e?.id} onClick={() => (console.log(e))} />
+                  </div>
+                </div>
+              </>
             ))
           )}
-            </div>
-          )
+        </div>
+      </>
+    )
 }
 
 export default Calendar;
