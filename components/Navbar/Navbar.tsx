@@ -9,7 +9,7 @@ export default function TheNavbar() {
    <Navbar
   fluid={true}
   rounded={true}
-  className=" bg-transparent w-9/12 mx-auto pt-5"
+  className=" bg-transparent w-11/12 mx-auto pt-5"
 
 >
   <Navbar.Brand href="/">
@@ -18,8 +18,8 @@ export default function TheNavbar() {
       className="mr-3 h-6 sm:h-9"
       alt=" Logo"
     />
-    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-     Beezy
+    <span class="logotext" className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+     <em>Beeliz</em>
     </span>
   </Navbar.Brand>
   <div className="flex md:order-2 ">
