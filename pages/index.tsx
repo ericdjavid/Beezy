@@ -31,15 +31,15 @@ export default function Home(props: any) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         {/* Permet d'avoir l'écran bien zoomé à 100% sur telephone */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Beezey - A new way to plan business travels</title>
+        <title>Beeliz - Home</title>
       </Head>
       <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
         <svg
           className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+  xmlns="http://www.w3.org/2000/svg"
+  >
           <path
             fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
             fillOpacity=".3"
@@ -66,7 +66,7 @@ export default function Home(props: any) {
           <div className="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
             <div>
               <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-                <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                {/*<div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                   <span className="text-gray-600">
                     Announcing our next round of funding.{' '}
                     <a href="#" className="font-semibold text-indigo-600">
@@ -74,35 +74,43 @@ export default function Home(props: any) {
                       Read more <span aria-hidden="true">&rarr;</span>
                     </a>
                   </span>
-                </div>
+  </div>*/}
               </div>
               <div>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
-                  Votre générateur de voyages professionnels <span className='text-2xl'>️🌍❤💼</span>
+                Beeliz, le générateur de voyages professionnels<span className='text-2xl'>️</span>
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
-                  Beezy est un puissant générateur de voyage professionnels.
+                Un voyage pro bientôt ? Je choisis Beeliz !
                 </p>
+
+
+
+
                 <div className="mt-8 flex gap-x-4 sm:justify-center">
                   <Link
                     href="/cours"
                     className="inline-block rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
                   >
-                    Get started{' '}
+                    Connexion{' '}
                     <span className="text-indigo-200" aria-hidden="true">
                       &rarr;
                     </span>
                   </Link>
-                  {/* <a
+                  { <a
                     href="#"
                     className="inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 text-gray-900 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
                   >
-                    Live demo{' '}
+                    Voir les abonnements{' '}
                     <span className="text-gray-400" aria-hidden="true">
                       &rarr;
                     </span>
-                  </a> */}
+                  </a> 
+                  }
                 </div>
+
+
+
               </div>
               <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
                 <svg

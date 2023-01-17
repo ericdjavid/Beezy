@@ -2,27 +2,27 @@ import { BoltIcon, DevicePhoneMobileIcon, GlobeAltIcon, ScaleIcon } from '@heroi
 
 const features = [
   {
-    name: 'Multiples reservations, 1 invoice',
+    name: 'Synchronisez votre agenda',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'Grâce à la technologie Beeliz, vous pouvez synchronisez votre agenda sur notre plateforme, et ajouter vos rendez-vous facilement',
     icon: GlobeAltIcon,
   },
   {
-    name: 'Connect your calendar to generate smart bundles',
+    name: 'Réservez en quelques clics',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'Fini les tableurs excel pour planifier vos déplacments. Avec Beeliz, organiser ses voyages est incroyanlement rapide !',
     icon: ScaleIcon,
   },
   {
-    name: 'Generate \"bundles\" according to your preferences',
+    name: 'Générez des bundles voyage personnalisables',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'Nous choisissons pour vous les solutions les plus avantageuses en fonction de vos habitudes. Besoin de modifier une étape du trajet ? C\'est possible et très simple à faire.',
     icon: BoltIcon,
   },
   {
-    name: '\"Business as usual\" mode, to remember your preferences',
+    name: 'Conservez une vue d\'ensemble sur vos déplacements à venir',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'Planifiez vos déplacements en avance et gardez un oeil sur vos prochaines destinations grâce à notre carte interactive.',
     icon: DevicePhoneMobileIcon,
   },
 ]
@@ -32,11 +32,12 @@ export default function FeatureExample() {
     <div className="bg-white py-24 sm:py-32 lg:py-40 w-screen">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="sm:text-center">
+          {/*
           <h2 className="text-lg font-semibold leading-8 text-indigo-600">Transactions</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">A better way to plan business travel</p>
+  */}
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Un voyage sur mesure en quelques minutes</p>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
-            Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-            accusamus quisquam.
+            Réservez en quelques clics, obtenez une seule facture et gagnez du temps.
           </p>
         </div>
 
