@@ -7,24 +7,112 @@
 html, body, label {
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden; /* Hide horizontal scrollbar */
+
+  /* violet */
+  --primary-color: 111, 76, 255;
+
+  --secondary-color:rgb(227, 226, 226)  ;
+
+  /* white */
+  --text-color: 256, 256, 256;
+
+  --text-color2: rgb(34, 34, 34);
+
+  a {
+      color:black;
+  }
 }
 
 .logotext {
   font-size: 40px;
 }
 
+.btn-gradient-border {
+  color: rgba(var(--text-color2));
+  border: 2px double transparent;
+  background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), radial-gradient(circle at left top, rgb(1, 110, 218), rgb(217, 0, 192));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  -webkit-transition: background-image 0.2s ease-in-out;
+transition: background-image 0.2s ease-in-out;
+transition: background-color 1s;
+}
 
-/* navigation 
- - show navigation always on the large screen devices with (min-width:1024)
-*/
 
-// @media (min-width: 1024px) {
-//   .top-navbar {
-//     display: inline-flex !important;
-//   }
-// }
+/* BUTTON */
+.btn {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 550;
+  padding: 9px 18px;
+  // margin: 1rem;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  text-align: center;
 
-/* .bg {
-  background: radial-gradient(ellipse at top, #ffe865, transparent),
-              radial-gradient(ellipse at bottom, #a29540, transparent);
-} */
+
+}
+
+.btn-semi-transparent {
+  background-color: rgba(var(--primary-color), 0.15);
+  border: 1px solid rgba(var(--primary-color), 0.25);
+  color: rgba(var(--text-color), 0.8);
+}
+
+.btn-secondary {
+  background-color: rgba(var(--secondary-color), 0.15);
+  border: 1px solid rgba(var(--primary-color), 0.25);
+}
+
+
+
+.btn-semi-transparent:hover {
+  background-color: rgba(var(--primary-color), 0.35);
+  border: 1px solid rgba(var(--primary-color), 0.5);
+  color: rgba(var(--text-color), 0.9);
+}
+
+.btn-glow:hover {
+  box-shadow: rgba(var(--primary-color), 0.5) 0px 0px 20px 0px;
+
+}
+
+.btn-gradient {
+  background-image: linear-gradient(to right, rgb(1 134 218), rgb(182 49 167));
+  border: 0;
+  color: rgba(var(--text-color));
+}
+
+.btn-gradient-border:hover {
+  border: 2px double transparent;
+  background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), radial-gradient(circle at left top, rgb(217, 0, 192),  rgb(1, 110, 218),);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  -webkit-transition: background-image 0.2s ease-in-out;
+transition: background-image 0.2s ease-in-out;
+}
+
+.btn-gradient-border {
+  color: rgba(var(--text-color2));
+  border: 2px double transparent;
+  background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), radial-gradient(circle at left top, rgb(1, 110, 218), rgb(217, 0, 192));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  -webkit-transition: background-image 0.2s ease-in-out;
+transition: background-image 0.2s ease-in-out;
+transition: background-color 1s;
+}
+
+.btn:hover {
+  transition: all 0.3s ease;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #30CFD0, #c43ad6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// find svg gradient way
+
