@@ -8,6 +8,7 @@ import { Card } from 'flowbite-react';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
 import Geocode from "react-geocode";
+import { format } from 'date-fns'
 
 function Calendar() {
   const notify = () => toast('Here is your toast.');
@@ -40,19 +41,22 @@ function Calendar() {
     }
   }
 
-
-
   // Bundles Generator
   async function handleBundle() {
     if (!homeTown)
       toast.error("Please set your home town.")
     // Get latitude & longitude from address.
     console.log(homeTown)
+    let homeTownLoc:string = ""
     await Geocode.fromAddress(homeTown).then(
       (response) => {
         console.log(response)
         const { lat, lng } = response.results[0].geometry.location;
         console.log(lat, lng);
+        homeTownLoc = lng + ";" + lat
+
+
+        
       },
       (error) => {
         console.error(error);
@@ -60,6 +64,12 @@ function Calendar() {
     );
 
     config.params.datetime = new Date(selected[0].start.dateTime)
+    console.log(selected[0])
+    const {lat, lng} = selected[0].geoLoc.results[0].geometry.location
+    // return
+    const v1 = lng + ";" + lat
+
+
     // config.params.datetime = new Date().toISOString()
     // console.log(config.params.datetime)
     // console.log(selected[0].start.dateTime)
@@ -67,7 +77,7 @@ function Calendar() {
     const codeStation2 = "4.835659;45.764043"
 
     // GENERATE SNCF TRAVEL
-    await axios.get(`https://api.sncf.com/v1/coverage/sncf/journeys?count=10&depth=2&from=${codeStation}&to=${codeStation2}`, config)
+    await axios.get(`https://api.sncf.com/v1/coverage/sncf/journeys?count=10&depth=2&from=${homeTownLoc}&to=${v1}`, config)
       .then((response: any) => {
         console.log(response.data);
         setTrain(Array.from(response.data.journeys))
@@ -296,12 +306,15 @@ function Calendar() {
         <div className='w-full mt-5 flex align-middle justify-center'>
           <div className='p-5  m-5 w-1/3 border rounded-md shadow-sm'>
             <h1 className=' text-3xl'>BUNDLE 1</h1>
-            <div className='flex'>Départ: {train[0].departure_date_time}</div>
+            <div className='flex'>Départ: {train[0].departure_date_time} 
+            {/* {format(train[0].departure_date_time, 'dd/mm/yyyy')} */}
+            </div>
             <div className='flex'>Emission CO²: {train[0].co2_emission?.value} gEC</div>
             <br/>
             <div className='text-2xl'>Sections</div>
             {train[0].sections && train[0].sections.map((e:any) => (
               <div>
+
                 {e.mode ? 'Walking 🚶' : null}
                 {e?.type === "public_transport" ? e?.display_informations?.commercial_mode + " - " + e?.display_informations?.name : null}
                 {e?.type === "transfer" ? "Transfer" : null} 
