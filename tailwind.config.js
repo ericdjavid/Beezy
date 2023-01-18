@@ -14,9 +14,19 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'sans': ['ui-sans-serif', 'Robotto'],
+      'sans': ['ui-sans-serif', 'Roboto'],
       'serif': ['ui-serif', 'Georgia'],
       'mono': ['ui-monospace', 'SFMono-Regular'],
+    },
+    colors: {
+      greybeeliz: "#bdbaba",
+      yellowbeeliz: "#F0D67F",
+      stonebeeliz: "#292524",
+    },
+    extend: {
+      backgroundImage: {
+        'blurbeeliz': "url('/assets/rectangle.png')"
+      }
     }
   },
 };
