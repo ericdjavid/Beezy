@@ -9,17 +9,15 @@ export default function TheNavbar() {
    <Navbar
   fluid={true}
   rounded={true}
-  className=" bg-transparent w-11/12 mx-auto pt-5"
-
->
+  className=" bg-transparent w-11/12 mx-auto pt-5">
   <Navbar.Brand href="/">
     <img
-      src="https://flowbite.com/docs/images/logo.svg"
+      src="/assets/bee.png"
       className="mr-3 h-6 sm:h-9"
-      alt=" Logo"
+      alt="Logo"
     />
-    <span class="logotext" className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-     <em>Beeliz</em>
+    <span className="self-center whitespace-nowrap text-4xl font-semibold dark:text-white italic">
+     Beeliz
     </span>
   </Navbar.Brand>
   <div className="flex md:order-2 ">

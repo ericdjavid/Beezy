@@ -10,15 +10,15 @@ import {
 
 export default function FooterProj() {
   return (
-    <Footer container>
+    <Footer container className="bg-greybeeliz">
       <div className="w-full">
         <Footer.Divider />
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex ">
           <div>
             <Footer.Brand
               href="https://flowbite.com"
-              src="https://flowbite.com/docs/images/logo.svg"
-              alt="Flowbite Logo"
+              src="/assets/bee.png"
+              alt="Logo"
               name="Beeliz"
             />
           </div>
@@ -26,22 +26,17 @@ export default function FooterProj() {
             <div>
               <Footer.Title title="À PROPOS" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#">Flowbite</Footer.Link>
-                <Footer.Link href="#">Tailwind CSS</Footer.Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="SUIVEZ-NOUS" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#">Github</Footer.Link>
-                <Footer.Link href="#">Discord</Footer.Link>
+              <Footer.Link href="#">Aide</Footer.Link>
+              <Footer.Link href="#">Compte</Footer.Link>
+              <Footer.Link href="#">Qui sommes-nous ?</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
               <Footer.Title title="MENTIONS LÉGALES" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#">Politique de confidentialité</Footer.Link>
-                <Footer.Link href="#">Termes & Conditions</Footer.Link>
+                <Footer.Link href="#">Confidentialité</Footer.Link>
+                <Footer.Link href="#">Préférences de coookies</Footer.Link>
+                <Footer.Link href="#">Conditons d'utilisation</Footer.Link>
               </Footer.LinkGroup>
             </div>
           </div>
