@@ -1,20 +1,93 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
+import AutoComplete from "react-google-autocomplete";
 import { useAuth } from './auth-context';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import { Card } from 'flowbite-react';
 import Link from 'next/link';
+import { toast } from 'react-hot-toast';
+import Geocode from "react-geocode";
+import { format } from 'date-fns'
 
 function Calendar() {
-
+  const notify = () => toast('Here is your toast.');
   const [step, setStep] = useState(0)
   const { setAuthTokens, accessToken } = useAuth();
   const [data, setData] = useState<any>(null)
   const [calendar, setCalendar] = useState<any>(null)
   const [events, setEvents] = useState<any>(null)
   const [selected, setSelected] = useState<any>([])
+  const [homeTown, setHomeTown] = useState<any>(null)
+  const [train, setTrain] = useState<any>()
+  const [bundle, setBundle] = useState<boolean>(false)
 
+
+  // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+  Geocode.setApiKey("AIzaSyCD5b-L6M2SS7IJS1WJvkI7tvIrC0fEcqc");
+
+  // set response language. Defaults to english.
+  Geocode.setLanguage("en");
+
+  // SNCF Config
+  const config: any = {
+    headers: {
+      // Authorization: process.env.REACT_APP_SNCF_API_KEY,
+      Authorization: "b01ed748-2f9e-4bc3-a309-e0be976c027f",
+      Accept: "application/json"
+    },
+    params: {
+      datetime: null 
+    }
+  }
+
+  // Bundles Generator
+  async function handleBundle() {
+    if (!homeTown)
+      toast.error("Please set your home town.")
+    // Get latitude & longitude from address.
+    console.log(homeTown)
+    let homeTownLoc:string = ""
+    await Geocode.fromAddress(homeTown).then(
+      (response) => {
+        console.log(response)
+        const { lat, lng } = response.results[0].geometry.location;
+        console.log(lat, lng);
+        homeTownLoc = lng + ";" + lat
+
+
+        
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    config.params.datetime = new Date(selected[0].start.dateTime)
+    console.log(selected[0])
+    const {lat, lng} = selected[0].geoLoc.results[0].geometry.location
+    // return
+    const v1 = lng + ";" + lat
+
+
+    // config.params.datetime = new Date().toISOString()
+    // console.log(config.params.datetime)
+    // console.log(selected[0].start.dateTime)
+    const codeStation = "2.3522219;48.856614"
+    const codeStation2 = "4.835659;45.764043"
+
+    // GENERATE SNCF TRAVEL
+    await axios.get(`https://api.sncf.com/v1/coverage/sncf/journeys?count=10&depth=2&from=${homeTownLoc}&to=${v1}`, config)
+      .then((response: any) => {
+        console.log(response.data);
+        setTrain(Array.from(response.data.journeys))
+        setBundle(true)
+      })
+      .catch((e: any) => (console.log(e)))
+  }
+
+
+  // Login button
   const login = useGoogleLogin({
     onSuccess: (tokenResponse: any) => (
       console.log(tokenResponse),
@@ -42,9 +115,12 @@ function Calendar() {
       else
         return item
 
-      console.log(address)
-      // TODO: call geo API and add position
-      await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCD5b-L6M2SS7IJS1WJvkI7tvIrC0fEcqc`)
+        // TODO set the good date
+        // var numDate= new Date(item.start.dateTime);
+        // newItem.start.theDate = numDate;
+        
+        console.log(address)
+        await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCD5b-L6M2SS7IJS1WJvkI7tvIrC0fEcqc`)
         .then(response => {
           console.log(response.data);
           newItem.geoLoc = response.data;
@@ -167,10 +243,23 @@ function Calendar() {
   if (step === 1)
     return (
       <>
-        <h1 className=" text-2xl text-center p-5">SET UP YOUR TRAVEL INFORMATION</h1>
+        <h1 className=" text-4xl text-center p-8 font-bold">Nouveau Voyage</h1>
         <div className='w-full p-5 flex justify-center flex-wrap xs:flex-col md:flex-col xl:flex-row'>
+          <div className='flex flex-col p-3 align-middle justify-center'>
+            <div>Select home city🏠</div>
+            <div>
+
+              <AutoComplete
+                defaultValue={"Paris, France"}
+                options={["(regions)"]}
+                apiKey="AIzaSyCD5b-L6M2SS7IJS1WJvkI7tvIrC0fEcqc"
+                onPlaceSelected={(place: any) => (setHomeTown(place?.formatted_address))}
+              />
+            </div>
+
+          </div>
           <div className='flex flex-col justify-center align-middle text-center'>
-            <div>Travel ✈️
+            <div>--- Travel ✈️
               <input type="checkbox" checked={true} />
             </div>
           </div>
@@ -208,6 +297,35 @@ function Calendar() {
             ))
           )}
         </div>
+        <div className='w-full mt-5 flex align-middle justify-center'>
+          <button className='btn btn-gradient-border' onClick={handleBundle}>
+            Generer bundles
+          </button>
+        </div>
+        {bundle && (
+        <div className='w-full mt-5 flex align-middle justify-center'>
+          <div className='p-5  m-5 w-1/3 border rounded-md shadow-sm'>
+            <h1 className=' text-3xl'>BUNDLE 1</h1>
+            <div className='flex'>Départ: {train[0].departure_date_time} 
+            {/* {format(train[0].departure_date_time, 'dd/mm/yyyy')} */}
+            </div>
+            <div className='flex'>Emission CO²: {train[0].co2_emission?.value} gEC</div>
+            <br/>
+            <div className='text-2xl'>Sections</div>
+            {train[0].sections && train[0].sections.map((e:any) => (
+              <div>
+
+                {e.mode ? 'Walking 🚶' : null}
+                {e?.type === "public_transport" ? e?.display_informations?.commercial_mode + " - " + e?.display_informations?.name : null}
+                {e?.type === "transfer" ? "Transfer" : null} 
+                {e?.type === "waiting" ? "Waiting" : null} 
+                </div>
+            ))}
+
+          </div>
+          </div>
+        )
+        }
       </>
     )
 }
