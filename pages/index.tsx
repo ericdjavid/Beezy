@@ -49,7 +49,7 @@ export default function Home(props: any) {
       </div>
       <Navbar />
       <main>
-        <div className="relative px-6 lg:px-8, bg-blurbeeliz">
+        <div className="relative px-6 lg:px-8, bg-blurbeeliz bg-cover h-screen">
           <div className="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
             <div>
               <div>

@@ -12,7 +12,7 @@ export default function TheNavbar() {
   className=" bg-transparent w-11/12 mx-auto pt-5">
   <Navbar.Brand href="/">
     <img
-      src="/assets/bee.png"
+      src="/assets/logo.png"
       className="mr-3 h-6 sm:h-9"
       alt="Logo"
     />

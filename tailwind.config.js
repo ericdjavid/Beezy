@@ -20,12 +20,13 @@ module.exports = {
     },
     colors: {
       greybeeliz: "#bdbaba",
-      yellowbeeliz: "#F0D67F",
+      yellowbeeliz: "#FBD160",
       stonebeeliz: "#292524",
     },
     extend: {
       backgroundImage: {
-        'blurbeeliz': "url('/assets/rectangle.png')"
+        'blurbeeliz': "url('/assets/rectangle.png')",
+        'bundle' : "url('/assets/bundle.png')"
       }
     }
   },

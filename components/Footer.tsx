@@ -17,7 +17,7 @@ export default function FooterProj() {
           <div>
             <Footer.Brand
               href="https://flowbite.com"
-              src="/assets/bee.png"
+              src="/assets/logo.png"
               alt="Logo"
               name="Beeliz"
             />
