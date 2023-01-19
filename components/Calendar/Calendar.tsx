@@ -19,7 +19,7 @@ function Calendar() {
   const [events, setEvents] = useState<any>(null)
   const [selected, setSelected] = useState<any>([])
   const [homeTown, setHomeTown] = useState<any>(null)
-  const [train, setTrain] = useState<any>()
+  const [train, setTrain] = useState<any>([])
   const [bundle, setBundle] = useState<boolean>(false)
 
 
@@ -37,53 +37,77 @@ function Calendar() {
       Accept: "application/json"
     },
     params: {
-      datetime: null 
+      datetime: null
     }
   }
 
   // Bundles Generator
   async function handleBundle() {
+
+    //!! HOME TOWN 
     if (!homeTown)
       toast.error("Please set your home town.")
     // Get latitude & longitude from address.
     console.log(homeTown)
-    let homeTownLoc:string = ""
+    let homeTownLoc: string = ""
     await Geocode.fromAddress(homeTown).then(
       (response) => {
         console.log(response)
         const { lat, lng } = response.results[0].geometry.location;
-        console.log(lat, lng);
+        // console.log(lat, lng);
         homeTownLoc = lng + ";" + lat
-
-
-        
       },
       (error) => {
         console.error(error);
       }
     );
 
-    config.params.datetime = new Date(selected[0].start.dateTime)
-    console.log(selected[0])
-    const {lat, lng} = selected[0].geoLoc.results[0].geometry.location
-    // return
+    //!! ITERATE THROUGH SELECTED EVENTS
+    for (let i = 0; i < selected.length; i++) {
+      console.log(selected[i])
+      config.params.datetime = new Date(selected[i].start.dateTime)
+      const { lat, lng } = selected[i].geoLoc.results[0].geometry.location
+      const v1 = lng + ";" + lat
+
+      if (i === selected.length - 1)
+        v1 === homeTownLoc
+
+      let v0;
+      if (i === 0)
+        v0 = homeTownLoc;
+      else {
+        const { lat, lng } = selected[i - 1].geoLoc.results[0].geometry.location
+        v0 = lng + ";" + lat
+      }
+
+      await axios.get(`https://api.sncf.com/v1/coverage/sncf/journeys?count=10&depth=2&from=${v0}&to=${v1}`, config)
+        .then((response: any) => {
+          // console.log(response.data);
+          // setTrain(Array.from(response.data.journeys))
+          setTrain(() => ([...train, response.data.journeys[0]]))
+          console.log(response.data.journeys)
+          // setBundle(true)
+        })
+        .catch((e: any) => (console.log(e)))
+
+      // ADD HOTEL IF OTHER DATE
+    }
+
+    const { lat, lng } = selected[selected.length - 1].geoLoc.results[0].geometry.location
     const v1 = lng + ";" + lat
-
-
-    // config.params.datetime = new Date().toISOString()
-    // console.log(config.params.datetime)
-    // console.log(selected[0].start.dateTime)
-    const codeStation = "2.3522219;48.856614"
-    const codeStation2 = "4.835659;45.764043"
-
-    // GENERATE SNCF TRAVEL
-    await axios.get(`https://api.sncf.com/v1/coverage/sncf/journeys?count=10&depth=2&from=${homeTownLoc}&to=${v1}`, config)
+    await axios.get(`https://api.sncf.com/v1/coverage/sncf/journeys?count=10&depth=2&from=${v1}&to=${homeTownLoc}`, config)
       .then((response: any) => {
-        console.log(response.data);
-        setTrain(Array.from(response.data.journeys))
-        setBundle(true)
+        // console.log(response.data);
+        setTrain(() => ([...train, response.data.journeys[0]]))
+        // console.log(response.data.journeys)
       })
       .catch((e: any) => (console.log(e)))
+
+
+    console.log(train)
+
+    setBundle(true)
+
   }
 
 
@@ -115,12 +139,12 @@ function Calendar() {
       else
         return item
 
-        // TODO set the good date
-        // var numDate= new Date(item.start.dateTime);
-        // newItem.start.theDate = numDate;
-        
-        console.log(address)
-        await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCD5b-L6M2SS7IJS1WJvkI7tvIrC0fEcqc`)
+      // TODO set the good date
+      // var numDate= new Date(item.start.dateTime);
+      // newItem.start.theDate = numDate;
+
+      console.log(address)
+      await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCD5b-L6M2SS7IJS1WJvkI7tvIrC0fEcqc`)
         .then(response => {
           console.log(response.data);
           newItem.geoLoc = response.data;
@@ -303,27 +327,32 @@ function Calendar() {
           </button>
         </div>
         {bundle && (
-        <div className='w-full mt-5 flex align-middle justify-center'>
-          <div className='p-5  m-5 w-1/3 border rounded-md shadow-sm'>
-            <h1 className=' text-3xl'>BUNDLE 1</h1>
-            <div className='flex'>Départ: {train[0].departure_date_time} 
-            {/* {format(train[0].departure_date_time, 'dd/mm/yyyy')} */}
-            </div>
-            <div className='flex'>Emission CO²: {train[0].co2_emission?.value} gEC</div>
-            <br/>
-            <div className='text-2xl'>Sections</div>
-            {train[0].sections && train[0].sections.map((e:any) => (
-              <div>
-
-                {e.mode ? 'Walking 🚶' : null}
-                {e?.type === "public_transport" ? e?.display_informations?.commercial_mode + " - " + e?.display_informations?.name : null}
-                {e?.type === "transfer" ? "Transfer" : null} 
-                {e?.type === "waiting" ? "Waiting" : null} 
+        <h1 className=' text-3xl p-5 text-center'>BUNDLE 1</h1>
+        )}
+        {bundle && (
+          train.map((train: any) => (
+            <div className='w-full flex align-middle justify-center'>
+              <div className='p-5  m-5 w-1/3 border rounded-md shadow-sm'>
+                <div className='flex'>Départ: {train.departure_date_time}
+                  {/* {format(train[0].departure_date_time, 'dd/mm/yyyy')} */}
                 </div>
-            ))}
+                <div className='flex'>Emission CO²: {train.co2_emission?.value} gEC</div>
+                <br />
+                <div className='text-2xl'>Sections</div>
+                <div>From: {train.sections[0].from.name}</div>
+                {train.sections && train.sections.map((e: any) => (
+                  <div>
 
-          </div>
-          </div>
+                    {e.mode ? 'Walking 🚶' : null}
+                    {e?.type === "public_transport" ? e?.display_informations?.commercial_mode + " - " + e?.display_informations?.name : null}
+                    {e?.type === "transfer" ? "Transfer" : null}
+                    {e?.type === "waiting" ? "Waiting" : null}
+                  </div>
+                ))}
+                To: {train.sections[train.sections.length - 1].to.address.label}
+              </div>
+            </div>
+          ))
         )
         }
       </>
