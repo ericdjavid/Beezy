@@ -11,7 +11,7 @@ export default function TheNavbar() {
   rounded={true}
   className=" bg-transparent w-11/12 mx-auto pt-5">
   <Navbar.Brand href="/">
-    <img
+    <Image
       src="/assets/bee.png"
       className="mr-3 h-6 sm:h-9"
       alt="Logo"

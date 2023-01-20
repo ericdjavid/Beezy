@@ -42,7 +42,7 @@ export default function fidelity() {
             <tbody>
              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
+                    Apple MacBook Pro 17&quot;
                </th>
                <td className="px-6 py-4">
                    Sliver
@@ -55,7 +55,7 @@ export default function fidelity() {
                 </td>
                 </tr>
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     Microsoft Surface Pro
                 </th>
                 <td className="px-6 py-4">

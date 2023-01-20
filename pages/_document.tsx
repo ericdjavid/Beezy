@@ -7,6 +7,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        {/* eslint-disable-next-line @next/next/no-sync-scripts, @next/next/no-sync-scripts */}
         <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
       </body>
     </Html>

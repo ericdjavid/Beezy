@@ -36,7 +36,7 @@ export default function FooterProj() {
               <Footer.LinkGroup col>
                 <Footer.Link href="#">Confidentialité</Footer.Link>
                 <Footer.Link href="#">Préférences de coookies</Footer.Link>
-                <Footer.Link href="#">Conditons d'utilisation</Footer.Link>
+                <Footer.Link href="#">Conditons d utilisation</Footer.Link>
               </Footer.LinkGroup>
             </div>
           </div>

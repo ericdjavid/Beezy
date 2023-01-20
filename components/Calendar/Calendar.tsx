@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AutoComplete from "react-google-autocomplete";
 import { useAuth } from './auth-context';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -46,7 +46,10 @@ function Calendar() {
 
     //!! HOME TOWN 
     if (!homeTown)
+    {
       toast.error("Please set your home town.")
+      return ;
+    }
     // Get latitude & longitude from address.
     console.log(homeTown)
     let homeTownLoc: string = ""
@@ -79,7 +82,6 @@ function Calendar() {
         const { lat, lng } = selected[i - 1].geoLoc.results[0].geometry.location
         v0 = lng + ";" + lat
       }
-
       await axios.get(`https://api.sncf.com/v1/coverage/sncf/journeys?count=10&depth=2&from=${v0}&to=${v1}`, config)
         .then((response: any) => {
           // console.log(response.data);
@@ -102,7 +104,6 @@ function Calendar() {
         // console.log(response.data.journeys)
       })
       .catch((e: any) => (console.log(e)))
-
 
     console.log(train)
 
@@ -331,7 +332,9 @@ function Calendar() {
         )}
         {bundle && (
           train.map((train: any) => (
-            <div className='w-full flex align-middle justify-center'>
+            <div className='w-full flex align-middle justify-center'
+            key={uuidv4()}
+            >
               <div className='p-5  m-5 w-1/3 border rounded-md shadow-sm'>
                 <div className='flex'>Départ: {train.departure_date_time}
                   {/* {format(train[0].departure_date_time, 'dd/mm/yyyy')} */}
@@ -341,7 +344,9 @@ function Calendar() {
                 <div className='text-2xl'>Sections</div>
                 <div>From: {train.sections[0].from.name}</div>
                 {train.sections && train.sections.map((e: any) => (
-                  <div>
+                  <div
+                  key={uuidv4()}
+                  >
 
                     {e.mode ? 'Walking 🚶' : null}
                     {e?.type === "public_transport" ? e?.display_informations?.commercial_mode + " - " + e?.display_informations?.name : null}
@@ -357,6 +362,9 @@ function Calendar() {
         }
       </>
     )
+
+    else 
+        return (<></>)
 }
 
 export default Calendar;
