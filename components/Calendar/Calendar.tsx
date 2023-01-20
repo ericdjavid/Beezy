@@ -60,29 +60,29 @@ function Calendar() {
         // console.log(lat, lng);
         homeTownLoc = lng + ";" + lat
       },
-      (error) => {
-        console.error(error);
-      }
-    );
-
-    //!! ITERATE THROUGH SELECTED EVENTS
-    for (let i = 0; i < selected.length; i++) {
-      console.log(selected[i])
-      config.params.datetime = new Date(selected[i].start.dateTime)
-      const { lat, lng } = selected[i].geoLoc.results[0].geometry.location
-      const v1 = lng + ";" + lat
-
-      if (i === selected.length - 1)
+        )        .catch((e: any) => (
+          toast.error("There was an error."),
+          console.log(e)
+          ))
+      
+      //!! ITERATE THROUGH SELECTED EVENTS
+      for (let i = 0; i < selected.length; i++) {
+        console.log(selected[i])
+        config.params.datetime = new Date(selected[i].start.dateTime)
+        const { lat, lng } = selected[i].geoLoc.results[0].geometry.location
+        const v1 = lng + ";" + lat
+        
+        if (i === selected.length - 1)
         v1 === homeTownLoc
-
-      let v0;
-      if (i === 0)
+        
+        let v0;
+        if (i === 0)
         v0 = homeTownLoc;
-      else {
-        const { lat, lng } = selected[i - 1].geoLoc.results[0].geometry.location
-        v0 = lng + ";" + lat
-      }
-      await axios.get(`https://api.sncf.com/v1/coverage/sncf/journeys?count=10&depth=2&from=${v0}&to=${v1}`, config)
+        else {
+          const { lat, lng } = selected[i - 1].geoLoc.results[0].geometry.location
+          v0 = lng + ";" + lat
+        }
+        await axios.get(`https://api.sncf.com/v1/coverage/sncf/journeys?count=10&depth=2&from=${v0}&to=${v1}`, config)
         .then((response: any) => {
           // console.log(response.data);
           // setTrain(Array.from(response.data.journeys))
@@ -90,8 +90,11 @@ function Calendar() {
           console.log(response.data.journeys)
           // setBundle(true)
         })
-        .catch((e: any) => (console.log(e)))
-
+        .catch((e: any) => (
+          toast.error("There was an error."),
+          console.log(e)
+          ))
+        
       // ADD HOTEL IF OTHER DATE
     }
 
@@ -103,8 +106,10 @@ function Calendar() {
         setTrain(() => ([...train, response.data.journeys[0]]))
         // console.log(response.data.journeys)
       })
-      .catch((e: any) => (console.log(e)))
-
+        .catch((e: any) => (
+          toast.error("There was an error."),
+          console.log(e)
+          ))
     console.log(train)
 
     setBundle(true)
