@@ -13,8 +13,10 @@ export default function TheNavbar() {
   <Navbar.Brand href="/">
     <Image
       src="/assets/bee.png"
-      className="mr-3 h-6 sm:h-9"
+      // className="mr-3 h-6 sm:h-9"
       alt="Logo"
+      width="50"
+      height="50"
     />
     <span className="self-center whitespace-nowrap text-4xl font-semibold dark:text-white italic">
      Beeliz

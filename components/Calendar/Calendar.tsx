@@ -216,13 +216,13 @@ function Calendar() {
         </button>
 
         <h1 className="text-3xl text-center p-3">Select Calendar</h1>
-        <div className='container flex flex-row flex-wrap gap-4 justify-center'>
+        <div className='w-full flex flex-row flex-wrap gap-4 justify-center m-1'>
           {!calendar && (<div>No calendars yet </div>)}
           {calendar && (calendar.map((e: any) => (
-            <Card className='w-1/6'
+            <Card className='sm:w-full md:w-1/3 xl:w-1/4'
               key={uuidv4()}
             >
-              <h6 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white w-auto">
+              <h6 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white w-auto sm:text-base">
                 {e?.summary}
               </h6>
               <p className="font-normal text-gray-700 dark:text-gray-400">
@@ -236,11 +236,11 @@ function Calendar() {
 
         <div className='w-full border border-b-black-500 mt-4 mb-4 '></div>
         <h1 className="text-3xl text-center p-3">Select Events</h1>
-        <div className='container flex flex-row flex-wrap gap-4 justify-center align-top'>
+        <div className='w-full flex flex-row flex-wrap gap-4 justify-center align-top'>
           {!events && (<div>No events yet </div>)}
           {events && (
             events.map((e: any) => (
-              <Card className='w-1/6 m-2 flex flex-col align-top'
+            <Card className='sm:w-full md:w-1/3 xl:w-1/4'
                 key={uuidv4()}
               >
                 {e.summary}
@@ -269,13 +269,12 @@ function Calendar() {
     return (
       <>
         <h1 className=" text-4xl text-center p-8 font-bold">Nouveau Voyage</h1>
-        <div className='w-full p-5 flex justify-center flex-wrap xs:flex-col md:flex-col xl:flex-row'>
+        <div className='w-full p-5 flex justify-center flex-wrap xs:flex-col sm:flex-col md:flex-col xl:flex-row'>
           <div className='flex flex-col p-3 align-middle justify-center'>
-            <div>Select home city🏠</div>
-            <div>
-
+            <div>Select home city 🏠</div>
+            <div className='border p-1'>
               <AutoComplete
-                defaultValue={"Paris, France"}
+                // defaultValue={"Paris, France"}
                 options={["(regions)"]}
                 apiKey="AIzaSyCD5b-L6M2SS7IJS1WJvkI7tvIrC0fEcqc"
                 onPlaceSelected={(place: any) => (setHomeTown(place?.formatted_address))}
@@ -284,19 +283,23 @@ function Calendar() {
 
           </div>
           <div className='flex flex-col justify-center align-middle text-center'>
-            <div>--- Travel ✈️
+            <div className=' text-white'>test</div>
+            <div>
+              <hr className="h-px my-8 bg-gray-800 border-0 dark:bg-gray-700"/>Travel ✈️
               <input type="checkbox" checked={true} />
             </div>
           </div>
           {selected && (
             selected.sort((a: any, b: any) => a.start?.dateTime - b.start?.dateTime).map((e: any) => (
               <>
-                <Card className='w-1/6 h-60 flex flex-col align-top m-2'
+                <Card className='sm:w-1/2 md:w-1/6 h-60 flex flex-col align-top m-3'
                   key={uuidv4()}
                 >
-                  {e.summary}
-                  <br />
-                  {e.start?.dateTime}
+                  <div className='font-bold text-1xl'>
+                    {e.summary}
+                    </div>
+                  {/* {e.start?.dateTime} */}
+                {format(new Date(e.start?.dateTime), 'dd MMMM yyy p')}
                   <p>
                     {e.location ? e.location : "Address missing 😢 - define an address (add Google address bar)"}
                   </p>
@@ -306,14 +309,16 @@ function Calendar() {
                 <div className='flex flex-col justify-center align-middle text-center'>
                   {e != selected[selected.length - 1] && (
                     <>
-                      <div>Sleep 🛏️
+                      <div>Sleep 🛏️{"   "}
                         <input type="checkbox" checked={true} value={e?.id} onClick={() => (console.log(e))} />
                       </div>
-                      <div>---------------</div>
+                  
+              <hr className="h-px my-8 bg-gray-800 border-0 dark:bg-gray-700"/>
+
                     </>
                   )}
 
-                  <div>Travel ✈️
+                  <div>Travel ✈️{" "}
 
                     <input type="checkbox" checked={true} value={e?.id} onClick={() => (console.log(e))} />
                   </div>
@@ -335,7 +340,7 @@ function Calendar() {
             <div className='w-full flex align-middle justify-center'
             key={uuidv4()}
             >
-              <div className='p-5  m-5 w-1/3 border rounded-md shadow-sm'>
+              <div className='p-5 m-5 border rounded-md shadow-sm sm:w-full md:w-1/3'>
                 <div className='flex'>Départ: {train.departure_date_time}
                   {/* {format(train[0].departure_date_time, 'dd/mm/yyyy')} */}
                 </div>
@@ -345,6 +350,7 @@ function Calendar() {
                 <div>From: {train.sections[0].from.name}</div>
                 {train.sections && train.sections.map((e: any) => (
                   <div
+                  className='sm:w-full'
                   key={uuidv4()}
                   >
 
