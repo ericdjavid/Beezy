@@ -1,3 +1,12 @@
+Beeliz, le générateur de voyages professionnels
+
+Projet développé dans le cadre du HEC x 42 x Strate Academy Startup Janvier 2023
+
+Vous pouvez 
+- synchroniser votre calendrier
+- choisir des évènements
+- générer des options de voyage combinant ces évènements
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
